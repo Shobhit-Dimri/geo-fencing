@@ -20,10 +20,10 @@
   
     foreach($fences as $key=>$array){
         $aFences = [];
-        $aFences["location"]['coordinates'][0] =  $array['long'];
-        $aFences["location"]['coordinates'][1] =  $array['lat'];
+        $aFences["location"]['coordinates'][0] =  floatval($array['long']);
+        $aFences["location"]['coordinates'][1] =  floatval($array['lat']);
         $aFences["location"]['type'] = "Point";
-        $aFences["location"]['radius'] = $array['radius'];
+        $aFences["location"]['radius'] = floatval($array['radius']);
         $aFences["location"]['city'] = $array['city'];
         $aFences["location"]['state'] = $array['state'];
         $aFences["location"]['country'] = $array['country'];
