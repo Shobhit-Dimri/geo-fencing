@@ -1,19 +1,22 @@
 <?php
-  // connect to mongodb
-  $m = new MongoClient();
-  echo "Connection to database successfully";
+
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    // connect to mongodb
+    $m = new MongoClient();
+    echo "Connection to database successfully";
    
-  // select a database
-  $db = $m->test;
-  echo "Database mydb selected";
-  $collection = $db->geo_fences;
-  echo "Collection selected succsessfully";
+    // select a database
+    $db = $m->test;
+    echo "Database mydb selected";
+    $collection = $db->geo_fences;
+    echo "Collection selected succsessfully";
 
-
-  $fences = $_POST['fences'];
-//   echo "<pre>"; 
-//   print_r($fences); 
-//   exit;
+    $fences = $_POST['fences'];
+    //   echo "<pre>"; 
+    //   print_r($fences); 
+    //   exit;
   
     foreach($fences as $key=>$array){
         $aFences = [];
