@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>GeoFencing Demo 5</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script type="text/JavaScript">
+      <!--
+         function AutoRefresh( t ) {
+            setTimeout("location.reload(true);", t);
+         }
+      //-->
+   </script>
+  </head>
+  <body onload="JavaScript:AutoRefresh(5000);">
+      <h1 style="text-align:center">GeoFence Demo 5</h1>
+    <div id="map"></div>
+    <form>
+      <input type="text" id="lat" name="lat" value="" placeholder="Enter Latitude" />
+      <input type="text" id="long" name="long" value="" placeholder="Enter Longitude" />
+      <!-- <input type="text" id="radius" name="radius" value="" placeholder="Enter Radius" /> -->
+      <!-- <input type="button" id="submit" name="submit" value="submit" onclick="setFence();"/> -->
+    </form>
+	
+    <script>
+      function initMap(lat='',lang='',radius='') {
+        // Create the map.
+        var map;
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(function(position) {
+            clat=position.coords.latitude;
+            clng=position.coords.longitude;
+            crad=5;
+            map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 4,
+              center: {lat: clat, lng: clng},
+              mapTypeId: 'terrain'
+            });
+            createCircle(clat,clng,crad);
+          });
+			  }else{
+          alert("Hi");
+        }
+    }
+
+	  function createCircle(lat, lng, radius){
+	    var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 12,
+			  center: {lat: parseFloat(lat), lng: parseFloat(lng)},
+			  mapTypeId: 'terrain'
+			});
+	    var cityCircle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        center: {lat: parseFloat(lat), lng: parseFloat(lng)},
+        radius: radius * 1000
+      });
+
+      document.getElementById("lat").value= parseFloat(lat);
+      document.getElementById("long").value= parseFloat(lng);
+	  }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDqCd1-ydxIB_MVg2lWB2lMMSzKrQMnqg&callback=initMap">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </body>
+</html>
