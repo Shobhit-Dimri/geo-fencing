@@ -3,6 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>GeoFencing Demo 5</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -18,14 +19,13 @@
       }
     </style>
     <script type="text/JavaScript">
-      <!--
-         function AutoRefresh( t ) {
-            setTimeout("location.reload(true);", t);
-         }
-      //-->
+      function AutoRefresh( t ) {
+        setTimeout("location.reload(true);", t);
+      }
    </script>
   </head>
-  <body onload="JavaScript:AutoRefresh(5000);">
+  <!-- <body onload="JavaScript:AutoRefresh(20000);"> -->
+      <body>
       <h1 style="text-align:center">GeoFence Demo 5</h1>
     <div id="map"></div>
     <form>
@@ -75,9 +75,18 @@
 
       document.getElementById("lat").value= parseFloat(lat);
       document.getElementById("long").value= parseFloat(lng);
+
+      $.ajax({
+        url: "https://139.59.29.4:3000/geo?lat="+parseFloat(lat)+"&long="+parseFloat(lng), 
+        type:"get",        
+        success: function(result){
+            alert("Success...");
+            alert(result);
+        }
+      });
 	  }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDqCd1-ydxIB_MVg2lWB2lMMSzKrQMnqg&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd1SwUPVcJlftcL7jWRVtlABToAsHYBQs&callback=initMap">
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </body>
