@@ -20,7 +20,7 @@
       <input type="hidden" name="fences" id = "fences">
       <div id="map"></div>
       
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDqCd1-ydxIB_MVg2lWB2lMMSzKrQMnqg&libraries=places&callback=initAutocomplete" async defer></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd1SwUPVcJlftcL7jWRVtlABToAsHYBQs&libraries=places&callback=initAutocomplete" async defer></script>
     <!-- </form> -->
   </body>
 </html>

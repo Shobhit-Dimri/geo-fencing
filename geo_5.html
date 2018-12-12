@@ -77,7 +77,7 @@
       document.getElementById("long").value= parseFloat(lng);
 
       $.ajax({
-        url: "http://139.59.29.4:3000/geo?lat="+parseFloat(lat)+"&long="+parseFloat(lng), 
+        url: "https://139.59.29.4:3001/geo?lat="+parseFloat(lat)+"&long="+parseFloat(lng), 
         type:"get",        
         success: function(result){
             alert("Success...");
