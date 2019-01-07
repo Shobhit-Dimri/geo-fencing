@@ -9,7 +9,7 @@
 function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -33.8688, lng: 151.2195},
-        zoom: 13,
+        zoom: 15,
         mapTypeId: 'roadmap'
     });
 
@@ -18,7 +18,7 @@ function initAutocomplete() {
             clat=position.coords.latitude;
             clng=position.coords.longitude;
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
+                zoom: 15,
                 center: {lat: clat, lng: clng},
                 mapTypeId: 'roadmap'
             });
@@ -60,18 +60,18 @@ function initAutocomplete() {
                 console.log("Returned place contains no geometry");
                 return;
             }
-            // var icon = {
-            //     url: place.icon,
-            //     size: new google.maps.Size(71, 71),
-            //     origin: new google.maps.Point(0, 0),
-            //     anchor: new google.maps.Point(17, 34),
-            //     scaledSize: new google.maps.Size(25, 25)
-            // };
+            var icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25)
+            };
 
             // Create a marker for each place.
             markers.push(new google.maps.Marker({
                 map: map,
-                // icon: icon,
+                icon: icon,
                 title: place.name,
                 position: place.geometry.location
             }));
@@ -92,7 +92,7 @@ function initAutocomplete() {
         });
         map.fitBounds(bounds);
         map.setCenter(bounds.getCenter());
-        map.setZoom(14);
+        map.setZoom(15);
     });
 }
 
@@ -101,7 +101,8 @@ function initMap(lat, lang, map, place) {
     // Create the map.
     map.center = {lat: parseFloat(lat), lng: parseFloat(lang)};
     // Set radius for circle to me drawn
-    var radius = (document.getElementById("radius").value !== "")?document.getElementById("radius").value:1;
+    // var radius = (document.getElementById("radius").value !== "")?document.getElementById("radius").value:1;
+    let radius = 5;
     var cityCircle = new google.maps.Circle({
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -113,38 +114,15 @@ function initMap(lat, lang, map, place) {
         radius: radius * 1000
     });
 
-    makeData(lat, lang, radius, place);
+    // makeData(lat, lang, radius, place);
+    fetchChefs(lat, lang);
 }
 
-var fences = [];
-function makeData(lat, long, radius, place){
-    console.log(place);
-    var city="";
-    var state = "";
-    var country = "";
-    var postal_code = "";
-    for(var i=0; i<place.address_components.length; i++){
-        if(place.address_components[i].types.indexOf("locality") === 0){
-            city = place.address_components[i].short_name;
-        }else if(place.address_components[i].types.indexOf("administrative_area_level_1") === 0){
-            state = place.address_components[i].long_name;
-        }else if(place.address_components[i].types.indexOf("country") === 0 ){
-            country = place.address_components[i].short_name;
-        }else if(place.address_components[i].types.indexOf("postal_code") === 0){
-            postal_code = place.address_components[i].long_name;
-        }
-    }
-
-    var fence = {city:city, state:state, country:country, postal_code:postal_code, lat:parseFloat(lat), long:parseFloat(long), radius: radius};
-    fences.push(fence);
+function fetchChefs(lat, long){
     // console.log(fences);
-}
-
-function onSubmit(){
-    console.log(fences);
     $.ajax({
-        url: "server.php", 
-        data: {fences:fences},
+        url: "users.php", 
+        data: {lat:lat, long:long},
         type:"post",        
         success: function(result){
             alert("Success...");
